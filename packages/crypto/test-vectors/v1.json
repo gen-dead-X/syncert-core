@@ -1,0 +1,315 @@
+{
+  "description": "syncert v1 compatibility vectors. Hex is lowercase. Wire binary fields are standard base64 with padding; pairing uses unpadded base64url.",
+  "version": 1,
+  "encoding": {
+    "associatedData": "u32be-length-prefixed UTF-8 of [associatedDataTag, spaceId, id, originDeviceId, kind] || u32be(schemaVersion) || u64be(createdAt)",
+    "ciphertext": "AES-256-GCM ciphertext || 16-byte tag",
+    "contentHash": "lowercase hex HMAC-SHA-256(contentHashKey, plaintext)",
+    "pairing": "\"syncert1:\" + base64url(JSON {\"v\":1,\"k\":base64url(spaceKey),\"r\":relayUrl,\"t\":joinToken})"
+  },
+  "kdf": {
+    "algorithm": "HKDF-SHA-256, 32-byte output",
+    "salt": "73796e636572742f76312f686b64662d73616c74",
+    "infoEncryption": "73796e636572742f76312f6974656d2d656e6372797074696f6e",
+    "infoContentHash": "73796e636572742f76312f636f6e74656e742d68617368",
+    "cases": [
+      {
+        "spaceKey": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "encryptionKey": "dc2a7b42a1192f1a104814a85c59bd704c46fe6c92482216918050b274121038",
+        "contentHashKey": "06698551565d6b59edcdf0b1b4b6c2305482eab94beb524e655c7cc2cb7ed3a0"
+      },
+      {
+        "spaceKey": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "encryptionKey": "4dfe8fd62621391d86bf024e23e817a6518fc9241ef6aa54cdb72832db2ae9b2",
+        "contentHashKey": "5f50f64187f4b57300e8aeb99f08563885456eea91ae8c1687b38cf1f061212e"
+      }
+    ]
+  },
+  "aead": {
+    "algorithm": "AES-256-GCM, 96-bit nonce, 128-bit tag",
+    "associatedDataTag": "syncert/v1/item-ad",
+    "items": [
+      {
+        "name": "ascii",
+        "spaceKey": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "meta": {
+          "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+          "spaceId": "space_test_1",
+          "originDeviceId": "device_mac_1",
+          "kind": "clipboard.text",
+          "schemaVersion": 1,
+          "createdAt": 1767225600000
+        },
+        "plaintextUtf8": "hello, syncert",
+        "plaintext": "68656c6c6f2c2073796e63657274",
+        "nonce": "000102030405060708090a0b",
+        "associatedData": "0000001273796e636572742f76312f6974656d2d61640000000c73706163655f746573745f310000001a30314b445851334a303041424344454647484a4b4d4e505152530000000c6465766963655f6d61635f310000000e636c6970626f6172642e74657874000000010000019b76daa800",
+        "ciphertext": "2cb16319efcd248a38b693873339a1235dd865dfeed9c2d96d2edb31a664",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10",
+        "wire": {
+          "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+          "spaceId": "space_test_1",
+          "originDeviceId": "device_mac_1",
+          "kind": "clipboard.text",
+          "schemaVersion": 1,
+          "createdAt": 1767225600000,
+          "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+          "nonce": "AAECAwQFBgcICQoL",
+          "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+        }
+      },
+      {
+        "name": "unicode",
+        "spaceKey": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "meta": {
+          "id": "01KDXQ3J01ABCDEFGHJKMNPQRS",
+          "spaceId": "space_test_1",
+          "originDeviceId": "device_android_1",
+          "kind": "clipboard.text",
+          "schemaVersion": 1,
+          "createdAt": 1767225600123
+        },
+        "plaintextUtf8": "héllo 🌍 नमस्ते — \"quotes\" \n newline",
+        "plaintext": "68c3a96c6c6f20f09f8c8d20e0a4a8e0a4aee0a4b8e0a58de0a4a4e0a58720e28094202271756f74657322200a206e65776c696e65",
+        "nonce": "a0a1a2a3a4a5a6a7a8a9aaab",
+        "associatedData": "0000001273796e636572742f76312f6974656d2d61640000000c73706163655f746573745f310000001a30314b445851334a303141424344454647484a4b4d4e50515253000000106465766963655f616e64726f69645f310000000e636c6970626f6172642e74657874000000010000019b76daa87b",
+        "ciphertext": "5dd33c1536708dc62c58900f3c3d7a5cdef374260f365f94cbe8135985ff4dbfb0ce3770339b73696530943678ed80b61547ec9ca327cb42384d3de1b80cb821e6938b927c",
+        "contentHash": "d982f76d6c40628a0d8ba1c9c6e6309a62fda5d430b1f993ea041de999210e02",
+        "wire": {
+          "id": "01KDXQ3J01ABCDEFGHJKMNPQRS",
+          "spaceId": "space_test_1",
+          "originDeviceId": "device_android_1",
+          "kind": "clipboard.text",
+          "schemaVersion": 1,
+          "createdAt": 1767225600123,
+          "payload": "XdM8FTZwjcYsWJAPPD16XN7zdCYPNl+Uy+gTWYX/Tb+wzjdwM5tzaWUwlDZ47YC2FUfsnKMny0I4TT3huAy4IeaTi5J8",
+          "nonce": "oKGio6Slpqeoqaqr",
+          "contentHash": "d982f76d6c40628a0d8ba1c9c6e6309a62fda5d430b1f993ea041de999210e02"
+        }
+      },
+      {
+        "name": "empty",
+        "spaceKey": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "meta": {
+          "id": "7ZZZZZZZZZZZZZZZZZZZZZZZZZ",
+          "spaceId": "S",
+          "originDeviceId": "D",
+          "kind": "clipboard.text",
+          "schemaVersion": 1,
+          "createdAt": 0
+        },
+        "plaintextUtf8": "",
+        "plaintext": "",
+        "nonce": "ffffffffffffffffffffffff",
+        "associatedData": "0000001273796e636572742f76312f6974656d2d616400000001530000001a375a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a00000001440000000e636c6970626f6172642e74657874000000010000000000000000",
+        "ciphertext": "04ed1b4b9f07d391ab52e99f0b6a2da8",
+        "contentHash": "965669d33bf8d46761a5d8fbde3db1311b7381cabda37ef55aacdea26c970908",
+        "wire": {
+          "id": "7ZZZZZZZZZZZZZZZZZZZZZZZZZ",
+          "spaceId": "S",
+          "originDeviceId": "D",
+          "kind": "clipboard.text",
+          "schemaVersion": 1,
+          "createdAt": 0,
+          "payload": "BO0bS58H05GrUumfC2otqA==",
+          "nonce": "////////////////",
+          "contentHash": "965669d33bf8d46761a5d8fbde3db1311b7381cabda37ef55aacdea26c970908"
+        }
+      }
+    ]
+  },
+  "tampered": [
+    {
+      "name": "ciphertext bit flip",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.text",
+        "schemaVersion": 1,
+        "createdAt": 1767225600000,
+        "payload": "LbFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "tag bit flip",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.text",
+        "schemaVersion": 1,
+        "createdAt": 1767225600000,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZl",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "nonce bit flip",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.text",
+        "schemaVersion": 1,
+        "createdAt": 1767225600000,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AQECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "spaceId changed",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_2",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.text",
+        "schemaVersion": 1,
+        "createdAt": 1767225600000,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "id changed",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRT",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.text",
+        "schemaVersion": 1,
+        "createdAt": 1767225600000,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "originDeviceId changed",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_2",
+        "kind": "clipboard.text",
+        "schemaVersion": 1,
+        "createdAt": 1767225600000,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "kind changed",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.html",
+        "schemaVersion": 1,
+        "createdAt": 1767225600000,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "schemaVersion changed",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.text",
+        "schemaVersion": 2,
+        "createdAt": 1767225600000,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "createdAt changed",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.text",
+        "schemaVersion": 1,
+        "createdAt": 1767225600001,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "6111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    },
+    {
+      "name": "contentHash changed",
+      "wire": {
+        "id": "01KDXQ3J00ABCDEFGHJKMNPQRS",
+        "spaceId": "space_test_1",
+        "originDeviceId": "device_mac_1",
+        "kind": "clipboard.text",
+        "schemaVersion": 1,
+        "createdAt": 1767225600000,
+        "payload": "LLFjGe/NJIo4tpOHMzmhI13YZd/u2cLZbS7bMaZk",
+        "nonce": "AAECAwQFBgcICQoL",
+        "contentHash": "7111f0b65e7308310a8fb90b280ef14e93c90b2969e620a4b6837e17d1e98d10"
+      },
+      "base": "ascii"
+    }
+  ],
+  "pairing": {
+    "valid": [
+      {
+        "spaceKey": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "relayUrl": "wss://relay.syncert.example/v1",
+        "joinToken": "jt_AAAAAAAAAAAAAAAAAAAAAA",
+        "encoded": "syncert1:eyJ2IjoxLCJrIjoiQUFFQ0F3UUZCZ2NJQ1FvTERBME9EeEFSRWhNVUZSWVhHQmthR3h3ZEhoOCIsInIiOiJ3c3M6Ly9yZWxheS5zeW5jZXJ0LmV4YW1wbGUvdjEiLCJ0IjoianRfQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSJ9"
+      },
+      {
+        "spaceKey": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "relayUrl": "ws://localhost:8787",
+        "joinToken": "0123456789abcdef",
+        "encoded": "syncert1:eyJ2IjoxLCJrIjoiX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fOCIsInIiOiJ3czovL2xvY2FsaG9zdDo4Nzg3IiwidCI6IjAxMjM0NTY3ODlhYmNkZWYifQ"
+      }
+    ],
+    "invalid": [
+      {
+        "name": "wrong prefix",
+        "encoded": "syncert2:eyJ2IjoxLCJrIjoiQUFFQ0F3UUZCZ2NJQ1FvTERBME9EeEFSRWhNVUZSWVhHQmthR3h3ZEhoOCIsInIiOiJ3c3M6Ly9yZWxheS5zeW5jZXJ0LmV4YW1wbGUvdjEiLCJ0IjoianRfQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSJ9"
+      },
+      {
+        "name": "missing prefix",
+        "encoded": "eyJ2IjoxLCJrIjoiQUFFQ0F3UUZCZ2NJQ1FvTERBME9EeEFSRWhNVUZSWVhHQmthR3h3ZEhoOCIsInIiOiJ3c3M6Ly9yZWxheS5zeW5jZXJ0LmV4YW1wbGUvdjEiLCJ0IjoianRfQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSJ9"
+      },
+      {
+        "name": "truncated",
+        "encoded": "syncert1:eyJ2IjoxLCJrIjoiQUFFQ0F3UUZCZ2NJQ1FvTERBME9EeEFSRWhNVUZSWVhHQmthR3h3ZEhoOCIsInIiOiJ3c3M6Ly9yZWxheS5zeW5jZXJ0LmV4YW1wbGUvdjEiLCJ0IjoianRfQUFBQUFBQUFBQUFBQUFBQUFBQUF"
+      },
+      {
+        "name": "padded base64",
+        "encoded": "syncert1:eyJ2IjoxLCJrIjoiQUFFQ0F3UUZCZ2NJQ1FvTERBME9EeEFSRWhNVUZSWVhHQmthR3h3ZEhoOCIsInIiOiJ3c3M6Ly9yZWxheS5zeW5jZXJ0LmV4YW1wbGUvdjEiLCJ0IjoianRfQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSJ9="
+      },
+      {
+        "name": "non-base64url character",
+        "encoded": "syncert1:eyJ2IjoxLCJrIjoiQUFFQ0F3UUZCZ2NJQ1FvTERBME9EeEFSRWhNVUZSWVhHQmthR3h3ZEhoOCIsInIiOiJ3c3M6Ly9yZWxheS5zeW5jZXJ0LmV4YW1wbGUvdjEiLCJ0IjoianRfQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSJ+"
+      },
+      {
+        "name": "space key too short",
+        "encoded": "syncert1:eyJ2IjoxLCJrIjoiQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBIiwiciI6IndzczovL3JlbGF5LnN5bmNlcnQuZXhhbXBsZS92MSIsInQiOiJqdF9BQUFBQUFBQUFBQUFBQUFBQUFBQUFBIn0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "name": "@syncert/core",
+  "version": "0.1.0",
+  "description": "syncert core: transport and kind-plugin interfaces (sync engine to come)",
+  "license": "MIT",
+  "author": "Joyrudra Biswas",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gen-dead-X/syncert-core.git",
+    "directory": "packages/core"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "@syncert/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "prepack": "pnpm run build"
+  },
+  "dependencies": {
+    "@syncert/protocol": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

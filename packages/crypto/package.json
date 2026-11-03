@@ -1,0 +1,47 @@
+{
+  "name": "@syncert/crypto",
+  "version": "0.1.0",
+  "description": "syncert end-to-end encryption: AES-256-GCM via WebCrypto, keyed content hashes, pairing payloads",
+  "license": "MIT",
+  "author": "Joyrudra Biswas",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gen-dead-X/syncert-core.git",
+    "directory": "packages/crypto"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "@syncert/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./test-vectors/v1.json": "./test-vectors/v1.json",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "test-vectors"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "prepack": "pnpm run build",
+    "vectors:update": "UPDATE_VECTORS=1 vitest run test/vectors.test.ts"
+  },
+  "dependencies": {
+    "@syncert/protocol": "workspace:^",
+    "zod": "^4.6.7"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
