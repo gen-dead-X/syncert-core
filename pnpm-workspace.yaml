@@ -1,3 +1,9 @@
 packages:
   - 'packages/*'
   - 'apps/*'
+
+# better-sqlite3 ships N-API prebuilds for linux (glibc + musl), macOS and Windows
+# inside its package, so its implicit `node-gyp rebuild` is unnecessary and would
+# only add a C++ toolchain requirement. Skip it.
+ignoredBuiltDependencies:
+  - better-sqlite3

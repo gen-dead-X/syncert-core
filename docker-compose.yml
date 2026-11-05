@@ -1,0 +1,25 @@
+# Self-host the syncert relay:  docker compose up -d
+# Then put it behind TLS (Caddy, Traefik, nginx, Cloudflare Tunnel...) and give
+# clients the wss:// URL. See README.md#self-hosting for every setting.
+services:
+  relay:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    image: syncert-server:local
+    restart: unless-stopped
+    ports:
+      - '8787:8787'
+    volumes:
+      - syncert-data:/data
+    environment:
+      # All optional; defaults shown in README.md.
+      ITEM_TTL: 24h
+      LOG_LEVEL: info
+      # Require `Authorization: Bearer <secret>` on POST /spaces (recommended for public relays).
+      SPACE_CREATION_SECRET: ${SPACE_CREATION_SECRET:-}
+      # Set to true only when a reverse proxy in front sets X-Forwarded-For.
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+
+volumes:
+  syncert-data:

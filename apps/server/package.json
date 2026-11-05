@@ -1,0 +1,57 @@
+{
+  "name": "@syncert/server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "syncert relay: stores and forwards end-to-end-encrypted clipboard items (sees only ciphertext)",
+  "license": "MIT",
+  "author": "Joyrudra Biswas",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gen-dead-X/syncert-core.git",
+    "directory": "apps/server"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22.14"
+  },
+  "bin": {
+    "syncert-server": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "@syncert/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "start": "node dist/cli.js",
+    "prepack": "pnpm run build"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.6",
+    "@syncert/protocol": "workspace:^",
+    "better-sqlite3": "^13.0.3",
+    "hono": "^4.13.16",
+    "ws": "^8.22.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@syncert/crypto": "workspace:^",
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/ws": "^8.18.2"
+  }
+}

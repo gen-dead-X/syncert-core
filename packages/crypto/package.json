@@ -33,6 +33,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc -p tsconfig.json",
+    "lint": "eslint .",
     "test": "vitest run",
     "prepack": "pnpm run build",
     "vectors:update": "UPDATE_VECTORS=1 vitest run test/vectors.test.ts"
