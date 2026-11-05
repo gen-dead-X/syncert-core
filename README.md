@@ -99,7 +99,7 @@ export condition / aliases), so typecheck and tests need no prior build.
 
 ## Development
 
-CI: GitHub Actions workflow in `.github/workflows-pending/ci.yml` (see the README there to activate).
+CI: GitHub Actions workflow in `.github/workflows/ci.yml` runs install, typecheck, lint and tests on every push and PR.
 
 Requires Node ≥ 22.12 and pnpm 10 (`corepack enable`).
 
