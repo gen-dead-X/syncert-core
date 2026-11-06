@@ -6,3 +6,14 @@ export {
   type TextClipboardAdapter,
 } from './text-clipboard.js';
 export { StubTransport } from './stub-transport.js';
+export {
+  WebSocketTransport,
+  TransportAuthenticationError,
+  type WebSocketFactory,
+} from './websocket-transport.js';
+export {
+  SyncEngine,
+  type SyncEngineOptions,
+  type SyncEngineState,
+  type QueuedItem,
+} from './sync-engine.js';

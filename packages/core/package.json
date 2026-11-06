@@ -36,7 +36,8 @@
     "prepack": "pnpm run build"
   },
   "dependencies": {
-    "@syncert/protocol": "workspace:^"
+    "@syncert/protocol": "workspace:^",
+    "@syncert/crypto": "workspace:^"
   },
   "publishConfig": {
     "access": "public"
