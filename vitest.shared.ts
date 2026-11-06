@@ -14,6 +14,7 @@ export const sharedConfig = defineConfig({
       '@syncert/protocol': src('protocol'),
       '@syncert/crypto': src('crypto'),
       '@syncert/core': src('core'),
+      '@syncert/server': fileURLToPath(new URL('./apps/server/src/index.ts', import.meta.url)),
     },
   },
   test: {

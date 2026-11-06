@@ -32,3 +32,19 @@ jobs:
       - run: pnpm format:check
       - run: pnpm -r test
       - run: pnpm -r build
+
+  docker:
+    name: Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -f apps/server/Dockerfile -t syncert-server:ci .
+      - name: Smoke test
+        run: |
+          docker run -d --name relay -p 8787:8787 syncert-server:ci
+          for i in $(seq 1 30); do
+            curl -fsS http://127.0.0.1:8787/health && exit 0
+            sleep 1
+          done
+          docker logs relay
+          exit 1
