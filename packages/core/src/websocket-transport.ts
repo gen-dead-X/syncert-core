@@ -21,7 +21,7 @@ export class TransportAuthenticationError extends Error {
 export class WebSocketTransport implements SyncTransport {
   #state: TransportState = 'idle';
   #socket?: WebSocket;
-  #connectPromise?: Promise<void>;
+  #connectPromise: Promise<void> | undefined;
   #frameListeners = new Set<(frame: ServerFrame) => void>();
   #stateListeners = new Set<(state: TransportState) => void>();
 

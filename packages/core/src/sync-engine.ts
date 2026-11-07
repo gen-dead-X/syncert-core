@@ -38,7 +38,7 @@ export class SyncEngine {
   #running = false;
   #connecting = false;
   #flushing = false;
-  #timer?: ReturnType<typeof setTimeout>;
+  #timer: ReturnType<typeof setTimeout> | undefined;
   #attempt = 0;
   #unsubscribe: Unsubscribe[] = [];
   #processing: Promise<void> = Promise.resolve();
