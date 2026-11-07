@@ -66,6 +66,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@syncert/crypto':
+        specifier: workspace:^
+        version: link:../crypto
       '@syncert/protocol':
         specifier: workspace:^
         version: link:../protocol
